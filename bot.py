@@ -49,7 +49,7 @@ class MyBotFactory(protocol.ClientFactory):
         connector.connect()
 
     def clientConnectionFailed(self, connector, reason):
-        print "Could not connect: %s" % reason
+        print reason, "Connection to %s by %s failed" % (connector.getDestination(), self)
 
 if __name__ == "__main__":
     reactor.connectTCP(cfg.config['serv_addr'], cfg.config['serv_port'], MyBotFactory())
