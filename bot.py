@@ -33,10 +33,12 @@ class MyBot(irc.IRCClient):
 
     def privmsg(self, user, channel, msg):
         msg=msg.lower() #convert message to lower case
-
+        if '!echo' in msg:
+            self.msg(self.channel, msg.replace('!echo', ''))
         for command in tree.findall('command[@name="%s"]' % msg):
+            print msg
             rank = command.find('response').text.lstrip()
-        self.msg(self.channel, rank)
+            self.msg(self.channel, rank)
 
 
 class MyBotFactory(protocol.ClientFactory):
